@@ -2,25 +2,28 @@
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
 // Get form data
 $name = $_POST['name'];
 $email = $_POST['email'];
 $message = $_POST['message'];
 
 // Create a new PHPMailer instance
-$mail = new PHPMailer\PHPMailer\PHPMailer();
+$mail = new PHPMailer();
 
-// SMTP configuration (replace with your own)
+// SMTP configuration
 $mail->isSMTP();
 $mail->Host = 'smtp.gmail.com';
 $mail->SMTPAuth = true;
 $mail->Username = 'your-email@gmail.com';
 $mail->Password = 'your-email-password';
-$mail->SMTPSecure = 'tls';
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 $mail->Port = 587;
 
 // Set sender and recipient
-$mail->setFrom('your-email@gmail.com', 'Your Name');
+$mail->setFrom($email, $name);
 $mail->addAddress('lira.tulchin@gmail.com', 'Lira Tulchin');
 
 // Set email content
